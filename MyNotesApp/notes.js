@@ -20,15 +20,16 @@ const getNotes = (title) => {
 
 const createNotes = (title, body) => {
     let notes = loadNotes();
+    let flag = 0;
     const duplicateNotes = notes.filter(note => {
         if (note.title == title) {
+            flag = 1;
             note.body = note.body + ', ' + body;
-            return true;
         }
-        return false;
+        return true;
     }
     )
-    if (duplicateNotes.length === 0) {
+    if (flag === 0) {
         notes.push({ title, body })
         saveNotes(notes);
     }
